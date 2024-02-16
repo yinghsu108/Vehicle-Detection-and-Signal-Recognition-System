@@ -1,11 +1,6 @@
 /*
 A Real-Time Forward Vehicle Detection and
 Signal Recognition System in All-Weather Situations
-
-Title: 全天候即時前車偵測與信號辨識系統
-Author: Jia-Ying Xu
-Date: July, 2019
-
 */
 
 #include <opencv2/opencv.hpp>
