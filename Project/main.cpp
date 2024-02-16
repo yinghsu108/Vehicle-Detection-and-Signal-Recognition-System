@@ -1,11 +1,8 @@
 /*
-°ê¥ß»OÆW¬ì§Ş¤j¾Ç
-107 ¹q¾÷¤uµ{¨t 
-
 A Real-Time Forward Vehicle Detection and
 Signal Recognition System in All-Weather Situations
 
-Title: ¥ş¤Ñ­Ô§Y®É«e¨®°»´ú»P«H¸¹¿ëÃÑ¨t²Î
+Title: å…¨å¤©å€™å³æ™‚å‰è»Šåµæ¸¬èˆ‡ä¿¡è™Ÿè¾¨è­˜ç³»çµ±
 Author: Jia-Ying Xu
 Date: July, 2019
 
@@ -59,12 +56,12 @@ DSST track;
 vector<DSST> tracker;
 
 
-int frame_sample = 40;//¨ú¼Ësignal recognition N frame
+int frame_sample = 40;//å–æ¨£signal recognition N frame
 
 
 //lighting recognition
 int lighting_recognition(Mat img, int frame);
-int light_frame = 30;//¨ú¼Ëlighting recognition N frame
+int light_frame = 30;//å–æ¨£lighting recognition N frame
 vector<int>lighting;
 
 
@@ -106,7 +103,7 @@ int main()
 
 	string video_name= "Sample-9";
 
-	VideoCapture video("F:\\¼v¤ù\\½×¤å¼v¤ù\\" + video_name + ".MP4");
+	VideoCapture video("F:\\å½±ç‰‡\\è«–æ–‡å½±ç‰‡\\" + video_name + ".MP4");
 
 	Size videoSize = Size((int)video.get(CV_CAP_PROP_FRAME_WIDTH), (int)video.get(CV_CAP_PROP_FRAME_HEIGHT));
 
@@ -247,7 +244,7 @@ int main()
 				}
 			}
 
-			//¨C­Ótacking_object°lÂÜ¹F30frameÅçÃÒ¬O¤£¬O¨®¤l¡A¤£¬O¨®¤l«hdelete tracking object
+			//æ¯å€‹tacking_objectè¿½è¹¤é”30frameé©—è­‰æ˜¯ä¸æ˜¯è»Šå­ï¼Œä¸æ˜¯è»Šå­å‰‡delete tracking object
 			for (int i = 0; i < tracker.size(); i++)
 			{
 				if (tracker[i].frame == 30)
@@ -284,18 +281,18 @@ int main()
 
 			del_index = nms.nms_detection_tracking(detection_object, tracking_object, 0.5);
 
-			//±Ndetection object ¥[¤J tracking
+			//å°‡detection object åŠ å…¥ tracking
 			for (int i = 0; i < detection_object.size(); i++)
 			{
 				tracking_object.push_back(detection_object[i]);
-				track.feature_flag = 0;//0:gray feature ,1:hog feature¡C
-				track.cell_size = 1;//1:gray feature, 4: hog feature¡C
+				track.feature_flag = 0;//0:gray feature ,1:hog featureã€‚
+				track.cell_size = 1;//1:gray feature, 4: hog featureã€‚
 				track.intensity_L.assign(frame_sample, 0);
 				track.intensity_R.assign(frame_sample, 0);
 				tracker.push_back(track);
 			}
 
-			//±N¬ö¿ı¾ú¥v¨®¿O¸ê°T±q(tracking_object to detection_object)
+			//å°‡ç´€éŒ„æ­·å²è»Šç‡ˆè³‡è¨Šå¾(tracking_object to detection_object)
 			for (int i = 0; i < del_index.size(); i++)
 			{
 				int l = del_index[i];
@@ -342,7 +339,7 @@ int main()
 				}
 				else
 				{
-					tracking_object[i] = tracker[i].Update(img, true);//true:¥Nªí°lÂÜ®Øsize·|§ïÅÜ
+					tracking_object[i] = tracker[i].Update(img, true);//true:ä»£è¡¨è¿½è¹¤æ¡†sizeæœƒæ”¹è®Š
 				}
 			}
 
@@ -388,7 +385,7 @@ int main()
 			//==================================================
 			vector<int>del_index;
 
-			//³sÄòdetection frame(t)»Pframe(t-1)¡Bframe(t-2)¡AIOU1¤j©ó0.8 ¤~¥[¤J°lÂÜ¡C
+			//é€£çºŒdetection frame(t)èˆ‡frame(t-1)ã€frame(t-2)ï¼ŒIOU1å¤§æ–¼0.8 æ‰åŠ å…¥è¿½è¹¤ã€‚
 			vector<Rect> add_tracking_object;
 			vector<bool>add = nms_nighttime.nms_detection_detection_pre(detection_object, detection_object_pre1, 0.5);
 			vector<bool>add1 = nms_nighttime.nms_detection_detection_pre(detection_object, detection_object_pre2, 0.5);
@@ -416,7 +413,7 @@ int main()
 			}
 
 
-			//¨C­Ótacking_object°lÂÜ¹F30frameÅçÃÒ¬O¤£¬O¨®¤l¡A¤£¬O¨®¤l«hdelete tracking object
+			//æ¯å€‹tacking_objectè¿½è¹¤é”30frameé©—è­‰æ˜¯ä¸æ˜¯è»Šå­ï¼Œä¸æ˜¯è»Šå­å‰‡delete tracking object
 			for (int i = 0; i < tracker.size(); i++)
 			{
 				if (tracker[i].frame == 29)
@@ -441,20 +438,20 @@ int main()
 
 			del_index = nms_nighttime.nms_detection_tracking(add_tracking_object, tracking_object, 0.5);
 
-			//±Ndetection object ¥[¤J tracking
+			//å°‡detection object åŠ å…¥ tracking
 			for (int i = 0; i < add_tracking_object.size(); i++)
 			{
 
 				tracking_object.push_back(add_tracking_object[i]);
-				track.feature_flag = 0;//0:gray feature ,1:hog feature¡C
-				track.cell_size = 1;//1:gray feature, 4: hog feature¡C
+				track.feature_flag = 0;//0:gray feature ,1:hog featureã€‚
+				track.cell_size = 1;//1:gray feature, 4: hog featureã€‚
 				track.intensity_L.assign(frame_sample, 0);
 				track.intensity_R.assign(frame_sample, 0);
 				tracker.push_back(track);
 			}
 
 
-			//±N¬ö¿ı¾ú¥v¨®¿O¸ê°T±q(tracking_object to detection_object)
+			//å°‡ç´€éŒ„æ­·å²è»Šç‡ˆè³‡è¨Šå¾(tracking_object to detection_object)
 			for (int i = 0; i < del_index.size(); i++)
 			{
 				int l = del_index[i];
@@ -501,7 +498,7 @@ int main()
 				}
 				else
 				{
-					tracking_object[i] = tracker[i].Update(img, true);//true:¥Nªí°lÂÜ®Øsize·|§ïÅÜ
+					tracking_object[i] = tracker[i].Update(img, true);//true:ä»£è¡¨è¿½è¹¤æ¡†sizeæœƒæ”¹è®Š
 
 				}
 			}
@@ -615,7 +612,7 @@ int main()
 			//==================================================
 			//============== Taillight Recognition =============
 			//==================================================
-			int signal_state_pre = tracker[i].signal_state; //frame(t-1)§À¿O«H¸¹ª¬ºA
+			int signal_state_pre = tracker[i].signal_state; //frame(t-1)å°¾ç‡ˆä¿¡è™Ÿç‹€æ…‹
 
 			signal.signal_recognition(daytime_nighttime,frame_sample,label, signal_state_pre,tracker[i].signal_state, tracker[i].intensity_L, tracker[i].intensity_R, pair_bounding_box, light_bounding_box, cascade_classifier_taillight, thresh_taillight);
 			
@@ -684,7 +681,7 @@ int main()
 		//write img
 		//if ((frame-1) % 1 == 0)
 		//{
-		//	sprintf(path, "f:\\¼v¤ù\\¹êÅçµ²ªG¼v¹³\\result.mp4\\");
+		//	sprintf(path, "f:\\å½±ç‰‡\\å¯¦é©—çµæœå½±åƒ\\result.mp4\\");
 		//	sprintf(path1, "%d.jpg", frame_i);
 		//	strcat(path, path1);
 		//	imwrite(path, img);
@@ -692,7 +689,7 @@ int main()
 		//}
 
 
-		//¿é¥Xbounding box file result
+		//è¼¸å‡ºbounding box file result
 		fout << frame << " ";
 		fout << tracking_object.size() << " ";
 		for (int i = 0; i < tracking_object.size(); i++)
@@ -791,7 +788,7 @@ int lighting_recognition(Mat img, int frame)
 	average_v_label = total_lighting / size;
 
 
-	int Max_V = 100;//ªùÂe­È
+	int Max_V = 100;//é–€æª»å€¼
 
 	if (average_v_label >= Max_V)
 		return 0;
