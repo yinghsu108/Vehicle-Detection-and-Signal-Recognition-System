@@ -2,10 +2,6 @@
 A Real-Time Forward Vehicle Detection and
 Signals Recognition System in All-Weather Situations
 
-Title: 全天候即時前車偵測與信號辨識系統
-Author: Jia-Ying Hsu
-Date: July, 2019
-
 1. Adaboost
 2. vehicle detection & taillight detection(daytime)
 3. vehicle detection & taillight detection(daytime)
