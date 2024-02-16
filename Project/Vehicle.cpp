@@ -1,11 +1,8 @@
 /*
-°ê¥ß»OÆW¬ì§Ş¤j¾Ç
-107 ¹q¾÷¤uµ{¨t
-
 A Real-Time Forward Vehicle Detection and
 Signals Recognition System in All-Weather Situations
 
-Title: ¥ş¤Ñ­Ô§Y®É«e¨®°»´ú»P«H¸¹¿ëÃÑ¨t²Î
+Title: å…¨å¤©å€™å³æ™‚å‰è»Šåµæ¸¬èˆ‡ä¿¡è™Ÿè¾¨è­˜ç³»çµ±
 Author: Jia-Ying Hsu
 Date: July, 2019
 
@@ -122,8 +119,8 @@ int Vehicle::classify(Mat img, Point &left_top, Point& right_bottom, Point cente
 	//==================================================
 	//================       Sobel      ================
 	//==================================================
-	Mat ss = sobel(gray, 0, 1);//««ª½Ãä½t
-	Mat result(img.rows, img.cols, CV_8UC1);//ª½¤è¹Ï
+	Mat ss = sobel(gray, 0, 1);//å‚ç›´é‚Šç·£
+	Mat result(img.rows, img.cols, CV_8UC1);//ç›´æ–¹åœ–
 	vector<double>histogram;
 	histogram.assign(img.cols, 0);
 	int average_h = 0;
@@ -360,7 +357,7 @@ vector<int> Vehicle::LBP_H(Mat img)
 {
 	vector<int>h;
 	vector<int>histogram;
-	int block = 4;	//¤@±i¹Ï¤À§O¤Á¦¨4*4­Óblock
+	int block = 4;	//ä¸€å¼µåœ–åˆ†åˆ¥åˆ‡æˆ4*4å€‹block
 
 	Mat block_img(img.rows / block, img.cols / block, CV_8UC1);
 	for (int j = 0; j < block; j++)
@@ -390,7 +387,7 @@ vector<Mat> Vehicle::MB_LBP_graph(Mat img)
 
 	vector<Mat>result;
 
-	//³]©w scale
+	//è¨­å®š scale
 	vector<int>scale;
 	scale.push_back(3);
 	/*
@@ -464,23 +461,23 @@ Mat Vehicle::sobel(Mat img, int vertical_Horizontal, int T1)
 
 
 
-	//sobel x ««ª½¹Bºâ¤l
+	//sobel x å‚ç›´é‹ç®—å­
 	GX[0][0] = -3; GX[1][0] = 0; GX[2][0] = 3;
 	GX[0][1] = -10; GX[1][1] = 0; GX[2][1] = 10;
 	GX[0][2] = -3; GX[1][2] = 0; GX[2][2] = 3;
 
-	//sobel y ¤ô¥­¹Bºâ¤l
+	//sobel y æ°´å¹³é‹ç®—å­
 	GY[0][0] = -3; GY[1][0] = -10; GY[2][0] = -3;
 	GY[0][1] = 0; GY[1][1] = 0;  GY[2][1] = 0;
 	GY[0][2] = 3; GY[1][2] = 10; GY[2][2] = 3;
 
 	/*
-	//sobel x ««ª½¹Bºâ¤l
+	//sobel x å‚ç›´é‹ç®—å­
 	GX[0][0] = -1; GX[1][0] = 0; GX[2][0] = 1;
 	GX[0][1] = -2; GX[1][1] = 0; GX[2][1] = 2;
 	GX[0][2] = -1; GX[1][2] = 0; GX[2][2] = 1;
 
-	//sobel y ¤ô¥­¹Bºâ¤l
+	//sobel y æ°´å¹³é‹ç®—å­
 	GY[0][0] = -1; GY[1][0] = -2; GY[2][0] = -1;
 	GY[0][1] = 0; GY[1][1] = 0;  GY[2][1] = 0;
 	GY[0][2] = 1; GY[1][2] = 2; GY[2][2] = 1;*/
@@ -611,7 +608,7 @@ Mat Vehicle::gray(Mat img)
 //==================================================
 
 //cumulative density function 
-//²Ö¿n±K«×¨ç¼Æ
+//ç´¯ç©å¯†åº¦å‡½æ•¸
 Mat Vehicle::CDF(Mat img, double T_scale)
 {
 	vector<double>cum;
@@ -627,7 +624,7 @@ Mat Vehicle::CDF(Mat img, double T_scale)
 	}
 
 	int threshold;
-	int t = (img.cols*img.rows)*T_scale;//½Õ¾ã¦h¤Ö³±¼v%·í§@ªùÂe­È
+	int t = (img.cols*img.rows)*T_scale;//èª¿æ•´å¤šå°‘é™°å½±%ç•¶ä½œé–€æª»å€¼
 	for (int i = 0; i < cum.size() - 1; i++)
 	{
 		cum[i + 1] += cum[i];
@@ -646,7 +643,7 @@ Mat Vehicle::CDF(Mat img, double T_scale)
 		uchar *data_out = result.ptr<uchar>(y);
 		for (int x = 0; x < img.cols; x++)
 		{
-			if (data[x] < threshold&&data[x] < 50)//³±¼v¹³¯À§C©ó80
+			if (data[x] < threshold&&data[x] < 50)//é™°å½±åƒç´ ä½æ–¼80
 			{
 				data_out[x] = 255;
 			}
@@ -658,7 +655,7 @@ Mat Vehicle::CDF(Mat img, double T_scale)
 	}
 
 	//cout << "threshold_CDF: " << threshold << endl;
-	//«¬ºA¾Ç(«I»k¿±µÈ)
+	//å‹æ…‹å­¸(ä¾µè•è†¨è„¹)
 
 	erode(result, result, Mat());
 	erode(result, result, Mat());
@@ -674,12 +671,12 @@ Mat Vehicle::CDF(Mat img, double T_scale)
 
 
 
-int label = 1;//¼ĞÅÒ
+int label = 1;//æ¨™ç±¤
 vector<int> rtabel;
 vector<int> imagee1;
 vector< vector<int> > imagee;
 
-void Vehicle::resolve(int a, int b, int label)//®Õ¥¿Ãö«Y(¦X¨Ö¼ĞÅÒ)
+void Vehicle::resolve(int a, int b, int label)//æ ¡æ­£é—œä¿‚(åˆä½µæ¨™ç±¤)
 {
 
 	int temp;
@@ -765,7 +762,7 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 				else if (c1 != 0)
 				{
 					imagee[x][y] = c1;
-					if (c4 != 0)//°O¿ı¦¹¼ĞÅÒÃö«Y¡A²Ä¤G¦¸±½´y¶i¦æ®Õ¥¿
+					if (c4 != 0)//è¨˜éŒ„æ­¤æ¨™ç±¤é—œä¿‚ï¼Œç¬¬äºŒæ¬¡æƒæé€²è¡Œæ ¡æ­£
 					{
 						resolve(c4, c1, label);
 					}
@@ -813,7 +810,7 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 				table[imagee[x][y]]++;
 
 				l = imagee[x][y];
-				b_b[l].center += Point(x, y);//­pºâ³±¼v¤¤¤ß²Ö¥[
+				b_b[l].center += Point(x, y);//è¨ˆç®—é™°å½±ä¸­å¿ƒç´¯åŠ 
 				if (x < b_b[l].left_top_x)
 					b_b[l].left_top_x = x;
 				else if (x > b_b[l].right_bottom_x)
@@ -832,14 +829,14 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 	vector<int>table1;
 	for (int i = 1; i < table.size(); i++)
 	{
-		if (table[i] > 200)// && table[i] < 15000)//¼ĞÅÒÁ`pixels¤j©ó©M¤p©ó¦h¤ÖªùÂe­È
+		if (table[i] > 200)// && table[i] < 15000)//æ¨™ç±¤ç¸½pixelså¤§æ–¼å’Œå°æ–¼å¤šå°‘é–€æª»å€¼
 		{
 			table1.push_back(i);
 		}
 
 	}
 
-	//³±¼vªø¼e¤ñ¨Ò & density¥²¶·¤j©ó0.5¥H¤W
+	//é™°å½±é•·å¯¬æ¯”ä¾‹ & densityå¿…é ˆå¤§æ–¼0.5ä»¥ä¸Š
 
 	vector<bounding_box>result_bounding_box;
 	bounding_box t;
@@ -851,9 +848,9 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 		{
 
 
-			t.center = b_b[table1[i]].center / table[table1[i]];//­pºâ³±¼v¤¤¤ß
+			t.center = b_b[table1[i]].center / table[table1[i]];//è¨ˆç®—é™°å½±ä¸­å¿ƒ
 
-			//¤¤¶¡¨ì©³³¡±K«×
+			//ä¸­é–“åˆ°åº•éƒ¨å¯†åº¦
 			int width = (b_b[table1[i]].right_bottom_x - b_b[table1[i]].left_top_x);
 			int height = (b_b[table1[i]].right_bottom_y - t.center.y);
 			int total = 0;
@@ -869,7 +866,7 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 			double density = total / double(width*height);
 
 
-			//¤W­±¨ì©³³¡±K«×
+			//ä¸Šé¢åˆ°åº•éƒ¨å¯†åº¦
 			height = (t.center.y - b_b[table1[i]].left_top_y);
 			total = 0;
 			for (int y = b_b[table1[i]].left_top_y; y < t.center.y; y++)
@@ -884,7 +881,7 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 			double density1 = total / double(width*height);
 
 
-			if (density > limit_density || density1 > limit_density)//§PÂ_density
+			if (density > limit_density || density1 > limit_density)//åˆ¤æ–·density
 			{
 
 
@@ -894,7 +891,7 @@ vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, d
 				t.right_bottom_y = b_b[table1[i]].right_bottom_y;
 
 				/*
-				t.left_top_x = b_b[table1[i]].left_top_x;//³±¼v
+				t.left_top_x = b_b[table1[i]].left_top_x;//é™°å½±
 				t.left_top_y = b_b[table1[i]].left_top_y;
 				t.right_bottom_x = b_b[table1[i]].right_bottom_x;
 				t.right_bottom_y = b_b[table1[i]].right_bottom_y;*/
@@ -972,7 +969,7 @@ vector<bounding_box> Vehicle::connect_compoent(Mat img)
 				else if (c1 != 0)
 				{
 					imagee[x][y] = c1;
-					if (c4 != 0)//°O¿ı¦¹¼ĞÅÒÃö«Y¡A²Ä¤G¦¸±½´y¶i¦æ®Õ¥¿
+					if (c4 != 0)//è¨˜éŒ„æ­¤æ¨™ç±¤é—œä¿‚ï¼Œç¬¬äºŒæ¬¡æƒæé€²è¡Œæ ¡æ­£
 					{
 						resolve(c4, c1, label);
 					}
@@ -1021,7 +1018,7 @@ vector<bounding_box> Vehicle::connect_compoent(Mat img)
 				table[imagee[x][y]]++;//area
 
 				l = imagee[x][y];
-				b_b[l].center += Point(x, y);//­pºâ²Ö¥[®y¼Ğ
+				b_b[l].center += Point(x, y);//è¨ˆç®—ç´¯åŠ åº§æ¨™
 				if (x < b_b[l].left_top_x)
 					b_b[l].left_top_x = x;
 				else if (x > b_b[l].right_bottom_x)
@@ -1039,7 +1036,7 @@ vector<bounding_box> Vehicle::connect_compoent(Mat img)
 	vector<int>table1;
 	for (int i = 1; i < table.size(); i++)
 	{
-		if (table[i] > 20)//¼ĞÅÒÁ`pixels¤j©ó©M¤p©ó¦h¤ÖªùÂe­È
+		if (table[i] > 20)//æ¨™ç±¤ç¸½pixelså¤§æ–¼å’Œå°æ–¼å¤šå°‘é–€æª»å€¼
 		{
 			table1.push_back(i);
 		}
@@ -1052,7 +1049,7 @@ vector<bounding_box> Vehicle::connect_compoent(Mat img)
 
 	for (int i = 0; i < table1.size(); i++)
 	{
-		t.center = b_b[table1[i]].center / table[table1[i]];//­pºâ¤¤¤ß
+		t.center = b_b[table1[i]].center / table[table1[i]];//è¨ˆç®—ä¸­å¿ƒ
 		t.area = table[table1[i]];
 		t.left_top_x = b_b[table1[i]].left_top_x;
 		t.left_top_y = b_b[table1[i]].left_top_y;
@@ -1184,7 +1181,7 @@ Mat Vehicle::otsu(Mat img, int T)
 			}
 		}
 
-		u0 = u0tmp / w0;//¥­§¡­È
+		u0 = u0tmp / w0;//å¹³å‡å€¼
 		u1 = u1tmp / w1;
 
 		for (int i = 0; i <= t; i++)
@@ -1202,11 +1199,11 @@ Mat Vehicle::otsu(Mat img, int T)
 		{
 			min = s;
 			threshold = t;
-			max1 = m_tmp1;//®p­È³Ì¤j 
+			max1 = m_tmp1;//å³°å€¼æœ€å¤§ 
 			max2 = m_tmp2;
-			u00 = u0;//¥­§¡­È
+			u00 = u0;//å¹³å‡å€¼
 			u11 = u1;
-			sd = sqrt(sum / w0);//¼Ğ·Ç®t
+			sd = sqrt(sum / w0);//æ¨™æº–å·®
 			sd1 = sqrt(sum1 / w1);
 		}
 	}
@@ -1237,7 +1234,7 @@ Mat Vehicle::otsu(Mat img, int T)
 
 int Vehicle::taillight_detection(Mat img, vector<bounding_box >&pair_bounding_box, vector<bounding_box >&light_bounding_box)
 {
-	//otsu Lab ¦â±mªÅ¶¡
+	//otsu Lab è‰²å½©ç©ºé–“
 	Mat img_lab;
 	cvtColor(img, img_lab, CV_BGR2Lab);
 	Mat result_lab_a = Mat(img.rows, img.cols, CV_8UC1);
@@ -1257,7 +1254,7 @@ int Vehicle::taillight_detection(Mat img, vector<bounding_box >&pair_bounding_bo
 
 
 
-	//otsu Ycrcb ¦â±mªÅ¶¡
+	//otsu Ycrcb è‰²å½©ç©ºé–“
 	Mat result_ycrcb_cr = Mat(img.rows, img.cols, CV_8UC1);
 	Mat img_ycrcb;
 	cvtColor(img, img_ycrcb, CV_BGR2YCrCb);
@@ -1513,7 +1510,7 @@ vector<int> Vehicle_nighttime::LBP_H(Mat img)
 {
 	vector<int>h;
 	vector<int>histogram;
-	int block = 4;	//¤@±i¹Ï¤À§O¤Á¦¨4*4­Óblock
+	int block = 4;	//ä¸€å¼µåœ–åˆ†åˆ¥åˆ‡æˆ4*4å€‹block
 
 	Mat block_img(img.rows / block, img.cols / block, CV_8UC1);
 	for (int j = 0; j < block; j++)
@@ -1543,7 +1540,7 @@ vector<Mat> Vehicle_nighttime::MB_LBP_graph(Mat img)
 
 	vector<Mat>result;
 
-	//³]©w scale
+	//è¨­å®š scale
 	vector<int>scale;
 	scale.push_back(3);
 
@@ -1643,7 +1640,7 @@ Mat Vehicle_nighttime::otsu(Mat img, int T)
 			}
 		}
 
-		u0 = u0tmp / w0;//¥­§¡­È
+		u0 = u0tmp / w0;//å¹³å‡å€¼
 		u1 = u1tmp / w1;
 
 		for (int i = 0; i <= t; i++)
@@ -1661,11 +1658,11 @@ Mat Vehicle_nighttime::otsu(Mat img, int T)
 		{
 			min = s;
 			threshold = t;
-			max1 = m_tmp1;//®p­È³Ì¤j 
+			max1 = m_tmp1;//å³°å€¼æœ€å¤§ 
 			max2 = m_tmp2;
-			u00 = u0;//¥­§¡­È
+			u00 = u0;//å¹³å‡å€¼
 			u11 = u1;
-			sd = sqrt(sum / w0);//¼Ğ·Ç®t
+			sd = sqrt(sum / w0);//æ¨™æº–å·®
 			sd1 = sqrt(sum1 / w1);
 		}
 	}
@@ -1693,7 +1690,7 @@ Mat Vehicle_nighttime::otsu(Mat img, int T)
 
 Mat Vehicle_nighttime::color_filter(Mat img, double limit_density)
 {
-	//otsu lab ¦â±mªÅ¶¡
+	//otsu lab è‰²å½©ç©ºé–“
 	/*
 	Mat img_lab;
 	cvtColor(img, img_lab, CV_BGR2Lab);
@@ -1715,7 +1712,7 @@ Mat Vehicle_nighttime::color_filter(Mat img, double limit_density)
 	*/
 
 
-	//otsu Ycrcb ¦â±mªÅ¶¡
+	//otsu Ycrcb è‰²å½©ç©ºé–“
 	Mat img_ycrcb;
 	cvtColor(img, img_ycrcb, CV_BGR2YCrCb);
 	Mat result_ycrcb_cr = Mat(img.rows, img.cols, CV_8UC1);
@@ -1760,7 +1757,7 @@ Mat Vehicle_nighttime::color_filter(Mat img, double limit_density)
 
 
 	//Lab&&Ycrvcb 
-	//¬õ¦â
+	//ç´…è‰²
 	Mat result_lab_ycrcb_r = Mat(img.rows, img.cols, CV_8UC1);
 	for (int y = 0; y < img.rows; y++)
 	{
@@ -1821,7 +1818,7 @@ Mat Vehicle_nighttime::color_filter(Mat img, double limit_density)
 	return result_lab_ycrcb_r1;
 }
 
-void Vehicle_nighttime::resolve(int a, int b, int label)//®Õ¥¿Ãö«Y(¦X¨Ö¼ĞÅÒ)
+void Vehicle_nighttime::resolve(int a, int b, int label)//æ ¡æ­£é—œä¿‚(åˆä½µæ¨™ç±¤)
 {
 
 	int temp;
@@ -1903,7 +1900,7 @@ vector<bounding_box> Vehicle_nighttime::connect_compoent(Mat img)
 				else if (c1 != 0)
 				{
 					imagee[x][y] = c1;
-					if (c4 != 0)//°O¿ı¦¹¼ĞÅÒÃö«Y¡A²Ä¤G¦¸±½´y¶i¦æ®Õ¥¿
+					if (c4 != 0)//è¨˜éŒ„æ­¤æ¨™ç±¤é—œä¿‚ï¼Œç¬¬äºŒæ¬¡æƒæé€²è¡Œæ ¡æ­£
 					{
 						resolve(c4, c1, label);
 					}
@@ -1952,7 +1949,7 @@ vector<bounding_box> Vehicle_nighttime::connect_compoent(Mat img)
 				table[imagee[x][y]]++;//area
 
 				l = imagee[x][y];
-				b_b[l].center += Point(x, y);//­pºâ²Ö¥[®y¼Ğ
+				b_b[l].center += Point(x, y);//è¨ˆç®—ç´¯åŠ åº§æ¨™
 				if (x < b_b[l].left_top_x)
 					b_b[l].left_top_x = x;
 				else if (x > b_b[l].right_bottom_x)
@@ -1970,7 +1967,7 @@ vector<bounding_box> Vehicle_nighttime::connect_compoent(Mat img)
 	vector<int>table1;
 	for (int i = 1; i < table.size(); i++)
 	{
-		if (table[i] > 20)//¼ĞÅÒÁ`pixels¤j©ó©M¤p©ó¦h¤ÖªùÂe­È
+		if (table[i] > 20)//æ¨™ç±¤ç¸½pixelså¤§æ–¼å’Œå°æ–¼å¤šå°‘é–€æª»å€¼
 		{
 			table1.push_back(i);
 		}
@@ -1983,7 +1980,7 @@ vector<bounding_box> Vehicle_nighttime::connect_compoent(Mat img)
 
 	for (int i = 0; i < table1.size(); i++)
 	{
-		t.center = b_b[table1[i]].center / table[table1[i]];//­pºâ¤¤¤ß
+		t.center = b_b[table1[i]].center / table[table1[i]];//è¨ˆç®—ä¸­å¿ƒ
 		t.area = table[table1[i]];
 		t.left_top_x = b_b[table1[i]].left_top_x;
 		t.left_top_y = b_b[table1[i]].left_top_y;
@@ -2018,7 +2015,7 @@ Mat Vehicle_nighttime::image_enhancement(Mat img)
 			data_out[x][1] = log(1 + data[x][1]);
 			data_out[x][2] = log(1 + data[x][2]);
 			/*
-			//Gamma ¼v¹³¥[±j
+			//Gamma å½±åƒåŠ å¼·
 			data_out[x][0] = pow(data[x][0], Gamma);
 			data_out[x][1] = pow(data[x][1], Gamma);
 			data_out[x][2] = pow(data[x][2], Gamma);*/
@@ -2042,7 +2039,7 @@ Mat Vehicle_nighttime::image_enhancement(Mat img)
 		Vec3f *data_out = result1.ptr<Vec3f>(y);
 		for (int x = 0; x < img.cols; x++)
 		{
-			//Gamma ¼v¹³¥[±j
+			//Gamma å½±åƒåŠ å¼·
 			data_out[x][0] = pow(data[x][0], Gamma);
 			data_out[x][1] = pow(data[x][1], Gamma);
 			data_out[x][2] = pow(data[x][2], Gamma);
@@ -2107,7 +2104,7 @@ double  Vehicle_nighttime::AR(bounding_box r1, bounding_box r2)
 
 
 
-bool sortfunction(bounding_box i, bounding_box j) { return (i.center.x < j.center.x); }//sort ¨ç¼Æ
+bool sortfunction(bounding_box i, bounding_box j) { return (i.center.x < j.center.x); }//sort å‡½æ•¸
 
 vector<Rect> Vehicle_nighttime::vehicle_detection(Point x1, Mat original_img, Mat img, vector< vector<classifier>>cascade_classifier, vector<double> thresh, double limit_density)
 {
@@ -2118,11 +2115,11 @@ vector<Rect> Vehicle_nighttime::vehicle_detection(Point x1, Mat original_img, Ma
 
 	vector<bounding_box > ccl_box = connect_compoent(filter);
 
-	//±Æ§Ç¨®¿O ccl_box ¥Ñx¤¤¤ß®y¼Ğ¥ª¦Ü¥k
+	//æ’åºè»Šç‡ˆ ccl_box ç”±xä¸­å¿ƒåº§æ¨™å·¦è‡³å³
 	sort(ccl_box.begin(), ccl_box.end(), sortfunction);
 
 
-	////draw­Ô¿ï¨®¿O
+	////drawå€™é¸è»Šç‡ˆ
 	//for (int i = 0; i < ccl_box.size(); i++)
 	//{
 	//	rectangle(img, Point(ccl_box[i].left_top_x, ccl_box[i].left_top_y), Point(ccl_box[i].right_bottom_x, ccl_box[i].right_bottom_y), Scalar(0, 255, 0), 2);
@@ -2210,7 +2207,7 @@ vector<Rect> Vehicle_nighttime::vehicle_detection(Point x1, Mat original_img, Ma
 			t.j = pair[max_label].j;
 
 
-			//¤w¨Ï¥Î
+			//å·²ä½¿ç”¨
 			ccl_box[t.i].use_flag = true;
 			ccl_box[t.j].use_flag = true;
 			result_pair.push_back(t);
@@ -2256,7 +2253,7 @@ vector<Rect> Vehicle_nighttime::vehicle_detection(Point x1, Mat original_img, Ma
 
 int Vehicle_nighttime::taillight_detection(Mat img, vector<bounding_box >&pair_bounding_box, vector<bounding_box >&light_bounding_box)
 {
-	//otsu Lab ¦â±mªÅ¶¡
+	//otsu Lab è‰²å½©ç©ºé–“
 	Mat img_lab;
 	cvtColor(img, img_lab, CV_BGR2Lab);
 	Mat result_lab_a = Mat(img.rows, img.cols, CV_8UC1);
@@ -2288,7 +2285,7 @@ int Vehicle_nighttime::taillight_detection(Mat img, vector<bounding_box >&pair_b
 
 
 
-	//otsu Ycrcb ¦â±mªÅ¶¡
+	//otsu Ycrcb è‰²å½©ç©ºé–“
 	Mat img_ycrcb;
 	cvtColor(img, img_ycrcb, CV_BGR2YCrCb);
 
@@ -2316,7 +2313,7 @@ int Vehicle_nighttime::taillight_detection(Mat img, vector<bounding_box >&pair_b
 			data_out[x] = data[x][0];
 		}
 	}
-	result_ycrcb_y = otsu(result_ycrcb_y, 240);//³]©w«G«×threshold
+	result_ycrcb_y = otsu(result_ycrcb_y, 240);//è¨­å®šäº®åº¦threshold
 	erode(result_ycrcb_y, result_ycrcb_y, Mat());
 	dilate(result_ycrcb_y, result_ycrcb_y, Mat());
 	dilate(result_ycrcb_y, result_ycrcb_y, Mat());
@@ -2327,7 +2324,7 @@ int Vehicle_nighttime::taillight_detection(Mat img, vector<bounding_box >&pair_b
 
 
 	//Lab&&Ycrvcb 
-	//¬õ¦â
+	//ç´…è‰²
 	Mat result_lab_ycrcb_r = Mat(img.rows, img.cols, CV_8UC1);
 	for (int y = 0; y < img.rows; y++)
 	{
@@ -2347,7 +2344,7 @@ int Vehicle_nighttime::taillight_detection(Mat img, vector<bounding_box >&pair_b
 	erode(result_lab_ycrcb_r, result_lab_ycrcb_r, Mat());
 	//imshow("result_lab_ycrcb_r", result_lab_ycrcb_r);
 
-	//«G«×
+	//äº®åº¦
 	/*
 	Mat result_lab_ycrcb_l = Mat(img.rows, img.cols, CV_8UC1);
 	for (int y = 0; y < img.rows; y++)
@@ -2529,8 +2526,8 @@ vector<double>Signal::featureTOfrequency(vector<double>hsv_v)
 	Mat complexImg;
 	merge(planes, 2, complexImg);
 	dft(complexImg, complexImg);
-	split(complexImg, planes);//¤À¦¨ ¹ê³¡planes[0]  µê³¡planes[1] 
-	magnitude(planes[0], planes[1], planes[0]);//®¶´T
+	split(complexImg, planes);//åˆ†æˆ å¯¦éƒ¨planes[0]  è™›éƒ¨planes[1] 
+	magnitude(planes[0], planes[1], planes[0]);//æŒ¯å¹…
 
 
 	for (int y = 0; y < planes[0].rows; y++)
@@ -2624,7 +2621,7 @@ double Signal::compute_intensity(Mat img, bounding_box bounding_box)
 
 
 //recognition_signal
-//0:¿O¤£«G	1:¥ªÂà	2:¥kÂà	3.¦MÀIÄµ§i	4.·Ù¨®  5.¥ªÂà+·Ù¨®  6.¥kÂà+·Ù¨®  7.Äµ§i+·Ù¨®
+//0:ç‡ˆä¸äº®	1:å·¦è½‰	2:å³è½‰	3.å±éšªè­¦å‘Š	4.ç…è»Š  5.å·¦è½‰+ç…è»Š  6.å³è½‰+ç…è»Š  7.è­¦å‘Š+ç…è»Š
 void Signal::signal_recognition(int daytime_nighttime,int frame_sample, int label, int signal_state_pre ,int &signal_state, vector<double >intensity_L, vector<double >intensity_R, vector<bounding_box >pair_bounding_box, vector<bounding_box >light_bounding_box, vector< vector<classifier>>cascade_classifier, vector<double> thresh)
 {
 
@@ -2644,7 +2641,7 @@ void Signal::signal_recognition(int daytime_nighttime,int frame_sample, int labe
 		int h2 = abs(pair_bounding_box[1].right_bottom_y - pair_bounding_box[1].left_top_y);
 
 
-		//°»´ú²Ä¤T·Ù¨®¿O
+		//åµæ¸¬ç¬¬ä¸‰ç…è»Šç‡ˆ
 		int third_brake = 0;
 		for (int i = 0; i < light_bounding_box.size(); i++)
 		{
@@ -2652,7 +2649,7 @@ void Signal::signal_recognition(int daytime_nighttime,int frame_sample, int labe
 			{
 				if ((pair_bounding_box[0].right_bottom_x < light_bounding_box[i].left_top_x) && (pair_bounding_box[1].left_top_x > light_bounding_box[i].right_bottom_x))
 				{
-					double scale = (light_bounding_box[i].right_bottom_y - light_bounding_box[i].left_top_y)*1.0 / (light_bounding_box[i].right_bottom_x - light_bounding_box[i].left_top_x);//·Ù¨®¿O¤@©w¬Oªø¤è§Î
+					double scale = (light_bounding_box[i].right_bottom_y - light_bounding_box[i].left_top_y)*1.0 / (light_bounding_box[i].right_bottom_x - light_bounding_box[i].left_top_x);//ç…è»Šç‡ˆä¸€å®šæ˜¯é•·æ–¹å½¢
 					int brake_h = abs(light_bounding_box[i].right_bottom_y - light_bounding_box[i].left_top_y);
 
 					if ((scale <= threshold_scale) && (brake_h < h1) && (brake_h < h2))
@@ -2661,7 +2658,7 @@ void Signal::signal_recognition(int daytime_nighttime,int frame_sample, int labe
 			}
 		}
 
-		//¨®§À¿O±j«×¤ñ¸û
+		//è»Šå°¾ç‡ˆå¼·åº¦æ¯”è¼ƒ
 		int intensity_brake = 0;
 		int pre_label=0;
 		if (label == 0)
