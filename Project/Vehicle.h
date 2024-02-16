@@ -1,13 +1,6 @@
 /*
-°ê¥ß»OÆW¬ì§Ş¤j¾Ç
-107 ¹q¾÷¤uµ{¨t
-
 A Real-Time Forward Vehicle Detection and
 Signals Recognition System in All-Weather Situations
-
-Title: ¥ş¤Ñ­Ô§Y®É«e¨®°»´ú»P«H¸¹¿ëÃÑ¨t²Î
-Author: Jia-Ying Hsu
-Date: July, 2019
 
 1. Adaboost
 2. vehicle detection & taillight detection(daytime)
@@ -28,10 +21,10 @@ using namespace std;
 class classifier
 {
 public:
-	double value;		//¤Á¦b­ş¤@ÂI
-	int dimension;		//ºû«×
-	double confidence;	//¤ÀÃş¾¹«H¤ß­È
-	int p;				//¤è¦V©Ê
+	double value;		//åˆ‡åœ¨å“ªä¸€é»
+	int dimension;		//ç¶­åº¦
+	double confidence;	//åˆ†é¡å™¨ä¿¡å¿ƒå€¼
+	int p;				//æ–¹å‘æ€§
 };
 
 class bounding_box
@@ -84,10 +77,10 @@ public:
 
 	//shadow detection
 	Mat Vehicle::gray(Mat img);
-	Mat Vehicle::sobel(Mat img, int vertical_Horizontal, int T1); //««ª½©Î¤ô¥­Ãä¹Bºâ
-	Mat Vehicle::CDF(Mat img, double T_scale);//²Ö¿n±K«×¨ç¼Æ
-	void Vehicle::resolve(int a, int b,int label);//®Õ¥¿Ãö«Y(¦X¨Ö¼ĞÅÒ)
-	vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, double h_w_scale_max, double limit_density);//³±¼v°»´ú
+	Mat Vehicle::sobel(Mat img, int vertical_Horizontal, int T1); //å‚ç›´æˆ–æ°´å¹³é‚Šé‹ç®—
+	Mat Vehicle::CDF(Mat img, double T_scale);//ç´¯ç©å¯†åº¦å‡½æ•¸
+	void Vehicle::resolve(int a, int b,int label);//æ ¡æ­£é—œä¿‚(åˆä½µæ¨™ç±¤)
+	vector<bounding_box> Vehicle::vehicle_detection(Mat img, double h_w_scale_min, double h_w_scale_max, double limit_density);//é™°å½±åµæ¸¬
 
 
 	//taillight detection
@@ -95,12 +88,12 @@ public:
 	Mat Vehicle::otsu(Mat img, int T);
 	int Vehicle::boundingBOX_area_compute(bounding_box r1);
 
-	double Vehicle::HS(bounding_box r1, bounding_box r2);//°ª«×
-	double Vehicle::AS(bounding_box r1, bounding_box r2);//­±¿n
-	double Vehicle::WS(bounding_box r1, bounding_box r2);//¼e«×
+	double Vehicle::HS(bounding_box r1, bounding_box r2);//é«˜åº¦
+	double Vehicle::AS(bounding_box r1, bounding_box r2);//é¢ç©
+	double Vehicle::WS(bounding_box r1, bounding_box r2);//å¯¬åº¦
 	double Vehicle::AR(bounding_box r1, bounding_box r2);
 
-	int Vehicle::taillight_detection(Mat img, vector<bounding_box >&pair_bounding_box, vector<bounding_box >&light_bounding_box);//¨®¿O°»´ú
+	int Vehicle::taillight_detection(Mat img, vector<bounding_box >&pair_bounding_box, vector<bounding_box >&light_bounding_box);//è»Šç‡ˆåµæ¸¬
 };
 
 
@@ -150,7 +143,7 @@ public:
 	vector<double>Signal::featureTOfrequency(vector<double>hsv_v);
 	vector<double>Signal::normalize(vector<double>hsv_v);
 	double Signal::compute_intensity(Mat img, bounding_box bounding_box);
-	void Signal::signal_recognition(int daytime_nighttime,int frame_sample, int label, int signal_state_pre, int &signal_state, vector<double >intensity_L, vector<double >intensity_R, vector<bounding_box >pair_bounding_box, vector<bounding_box >light_bounding_box, vector< vector<classifier>>cascade_classifier, vector<double> thresh);//¨®¿O¿ëÃÑ
+	void Signal::signal_recognition(int daytime_nighttime,int frame_sample, int label, int signal_state_pre, int &signal_state, vector<double >intensity_L, vector<double >intensity_R, vector<bounding_box >pair_bounding_box, vector<bounding_box >light_bounding_box, vector< vector<classifier>>cascade_classifier, vector<double> thresh);//è»Šç‡ˆè¾¨è­˜
 
 
 
